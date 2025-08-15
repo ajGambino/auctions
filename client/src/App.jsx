@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { useSocket } from './contexts/SocketContext';
 import { useAuction } from './contexts/AuctionContext';
+import Button from './components/common/Button';
+import Modal from './components/common/Modal';
+import Timer from './components/common/Timer';
 import './index.css';
 
 function App() {
@@ -10,6 +13,8 @@ function App() {
 
 	// local state for the join form
 	const [username, setUsername] = useState('');
+	const [showModal, setShowModal] = useState(false);
+	const [testTimer, setTestTimer] = useState(30);
 
 	// handle form submission
 	const handleJoin = (e) => {
@@ -18,6 +23,10 @@ function App() {
 			joinGame(username.trim());
 		}
 	};
+
+	// test functions for  components
+	const testModal = () => setShowModal(true);
+	const decrementTimer = () => setTestTimer(Math.max(0, testTimer - 1));
 
 	// show connection status
 	if (!connected) {
@@ -54,6 +63,26 @@ function App() {
 								Join Game
 							</button>
 						</form>
+						{/* test new components */}
+						<div className='component-test'>
+							<h3>Component Tests (Phase 2)</h3>
+							<div className='test-buttons'>
+								<Button variant='primary' onClick={testModal}>
+									Test Modal
+								</Button>
+								<Button variant='secondary' onClick={decrementTimer}>
+									Test Timer
+								</Button>
+								<Button variant='success' size='small'>
+									Success
+								</Button>
+								<Button variant='danger' disabled>
+									Disabled
+								</Button>
+							</div>
+							<Timer timeRemaining={testTimer} size='medium' />
+						</div>
+
 						{message && <p className='message'>{message}</p>}
 					</div>
 				);
@@ -81,6 +110,13 @@ function App() {
 									? `Waiting for ${maxUsers - playerCount} more players...`
 									: 'Game will start soon!'}
 							</p>
+							{/* test components in lobby too */}
+							<div className='lobby-actions'>
+								<Button variant='secondary' onClick={testModal}>
+									Test Modal
+								</Button>
+								<Timer timeRemaining={15} size='small' />
+							</div>
 						</div>
 						{message && <p className='message'>{message}</p>}
 					</div>
@@ -91,6 +127,7 @@ function App() {
 					<div className='screen'>
 						<h2>Game In Progress</h2>
 						<p>Game logic here</p>
+						<Timer timeRemaining={30} size='large' />
 					</div>
 				);
 
@@ -99,6 +136,9 @@ function App() {
 					<div className='screen'>
 						<h2>Game Complete</h2>
 						<p>Results here</p>
+						<Button variant='success' size='large'>
+							Play Again
+						</Button>
 					</div>
 				);
 
@@ -124,6 +164,17 @@ function App() {
 				</div>
 
 				{renderScreen()}
+				{/* test modal */}
+				{showModal && (
+					<Modal title='Test Modal' onClose={() => setShowModal(false)}>
+						<p>This is a test modal! 🎉</p>
+						<p>Press Escape or click outside to close.</p>
+						<br />
+						<Button variant='primary' onClick={() => setShowModal(false)}>
+							Close Modal
+						</Button>
+					</Modal>
+				)}
 			</div>
 		</div>
 	);
