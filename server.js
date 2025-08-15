@@ -14,7 +14,7 @@ const io = socketIo(server, {
 // track connected users
 const gameState = {
 	users: new Map(),
-	maxUsers: 6,
+	maxUsers: 2,
 };
 
 // socket connection handling
