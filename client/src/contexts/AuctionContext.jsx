@@ -17,9 +17,10 @@ export const AuctionProvider = ({ children }) => {
 	// simple state..expand this later
 	const [gamePhase, setGamePhase] = useState('join'); // 'join' | 'lobby' | 'game' | 'final'
 	const [playerCount, setPlayerCount] = useState(0);
-	const [maxUsers, setMaxUsers] = useState(6);
+	const [maxUsers, setMaxUsers] = useState(2);
 	const [currentUser, setCurrentUser] = useState(null);
 	const [message, setMessage] = useState('');
+	const [availablePlayers, setAvailablePlayers] = useState([]);
 
 	const { socket } = useSocket();
 
@@ -47,13 +48,34 @@ export const AuctionProvider = ({ children }) => {
 			setMaxUsers(data.maxUsers);
 		});
 
+		// simple game start event (no auction logic yet)
+		socket.on('gameStarted', (data) => {
+			console.log('game started!', data);
+			setGamePhase('game');
+			setMessage(data.message);
+			setAvailablePlayers(data.players || []);
+
+			// create mock user data for component testing
+			setCurrentUser({
+				username: currentUser?.username || 'test user',
+				budget: 100,
+				team: [
+					// mock team data for testing UserTeam component
+					{ id: 1, name: 'Patrick Mahomes', position: 'QB', cost: 25 },
+					{ id: 3, name: 'Christian McCaffrey', position: 'RB', cost: 30 },
+				],
+				playersOwned: 2,
+			});
+		});
+
 		// cleanup listeners when component unmounts
 		return () => {
 			socket.off('joinSuccess');
 			socket.off('joinFailed');
 			socket.off('playerCountUpdate');
+			socket.off('gameStarted');
 		};
-	}, [socket]);
+	}, [socket, currentUser]);
 
 	// action functions
 	const joinGame = (username) => {
@@ -75,6 +97,7 @@ export const AuctionProvider = ({ children }) => {
 		maxUsers,
 		currentUser,
 		message,
+		availablePlayers,
 
 		// actions
 		joinGame,

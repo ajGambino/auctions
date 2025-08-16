@@ -2,7 +2,7 @@ import React from 'react';
 import { useAuction } from '../../contexts/AuctionContext';
 
 const GameStatus = () => {
-	const { currentUser, gamePhase } = useAuction();
+	const { currentUser, gamePhase, message } = useAuction();
 
 	if (gamePhase !== 'game' || !currentUser) {
 		return null;
@@ -13,7 +13,7 @@ const GameStatus = () => {
 			<div className='status-header'>
 				<div className='game-info'>
 					<h2>Auction In Progress</h2>
-					<p>Blind bidding auction - may the best bidder win!</p>
+					<p>Blind bidding auction</p>
 				</div>
 
 				<div className='user-info'>
@@ -22,11 +22,13 @@ const GameStatus = () => {
 						<div className='user-stats'>
 							<div className='stat'>
 								<span className='stat-label'>Budget:</span>
-								<span className='stat-value budget'>$100</span>
+								<span className='stat-value budget'>${currentUser.budget}</span>
 							</div>
 							<div className='stat'>
 								<span className='stat-label'>Players:</span>
-								<span className='stat-value players'>0/6</span>
+								<span className='stat-value players'>
+									{currentUser.playersOwned}/6
+								</span>
 							</div>
 						</div>
 					</div>
@@ -35,8 +37,7 @@ const GameStatus = () => {
 
 			<div className='game-phase-indicator'>
 				<div className='phase-status'>
-					<span className='phase-icon'>🎮</span>
-					<span className='phase-text'>Game in progress</span>
+					<span className='phase-text'>{message}</span>
 				</div>
 			</div>
 		</div>

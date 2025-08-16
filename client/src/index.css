@@ -20,7 +20,7 @@ body {
 }
 
 .container {
-	max-width: 600px;
+	max-width: 1400px;
 	width: 100%;
 }
 
@@ -367,6 +367,478 @@ body {
 		opacity: 0.8;
 	}
 }
+
+/* Game Component Styles */
+
+/* PlayerCard Component */
+.player-card {
+	background: rgba(255, 255, 255, 0.1);
+	border: 2px solid rgba(255, 255, 255, 0.2);
+	border-radius: 12px;
+	padding: 15px;
+	transition: all 0.3s ease;
+	position: relative;
+	text-align: center;
+}
+
+/* player card sizes */
+.player-card-small {
+	padding: 10px;
+	min-width: 120px;
+}
+
+.player-card-medium {
+	padding: 15px;
+	min-width: 150px;
+}
+
+.player-card-large {
+	padding: 20px;
+	min-width: 200px;
+}
+
+.player-info {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.player-name {
+	font-weight: bold;
+	font-size: 1.1em;
+	color: white;
+}
+
+.player-card-small .player-name {
+	font-size: 0.9em;
+}
+
+.player-card-large .player-name {
+	font-size: 1.3em;
+}
+
+.player-position {
+	font-size: 0.8em;
+	padding: 4px 8px;
+	border-radius: 12px;
+	font-weight: bold;
+	display: inline-block;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+}
+
+/* position colors */
+.position-qb .player-position {
+	background: #4caf50;
+	color: white;
+}
+.position-rb .player-position {
+	background: #2196f3;
+	color: white;
+}
+.position-wr .player-position {
+	background: #ff9800;
+	color: white;
+}
+.position-te .player-position {
+	background: #9c27b0;
+	color: white;
+}
+.position-default .player-position {
+	background: #666;
+	color: white;
+}
+
+.player-cost {
+	position: absolute;
+	top: 8px;
+	right: 8px;
+	background: #4ecdc4;
+	color: white;
+	padding: 4px 8px;
+	border-radius: 8px;
+	font-size: 0.8em;
+	font-weight: bold;
+}
+
+/* UserTeam Component */
+.user-team {
+	background: rgba(255, 255, 255, 0.08);
+	border-radius: 15px;
+	padding: 20px;
+	border: 2px solid rgba(255, 255, 255, 0.15);
+}
+
+.team-header {
+	text-align: center;
+	margin-bottom: 20px;
+	border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+	padding-bottom: 15px;
+}
+
+.team-header h3 {
+	color: #4ecdc4;
+	margin-bottom: 15px;
+	font-size: 1.4em;
+	text-transform: capitalize;
+}
+
+.team-stats {
+	display: flex;
+	justify-content: space-around;
+	gap: 20px;
+}
+
+.stat {
+	text-align: center;
+}
+
+.stat-label {
+	display: block;
+	font-size: 0.8em;
+	opacity: 0.7;
+	margin-bottom: 5px;
+	text-transform: capitalize;
+}
+
+.stat-value {
+	display: block;
+	font-size: 1.2em;
+	font-weight: bold;
+}
+
+.stat-value.budget {
+	color: #4ecdc4;
+}
+
+.stat-value.players {
+	color: #ff6b6b;
+}
+
+.team-roster {
+	margin-top: 20px;
+}
+
+.position-section {
+	margin-bottom: 20px;
+	background: rgba(255, 255, 255, 0.05);
+	border-radius: 10px;
+	padding: 15px;
+	border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.position-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 12px;
+	padding-bottom: 8px;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.position-header h4 {
+	color: #4ecdc4;
+	font-size: 1.1em;
+	margin: 0;
+}
+
+.position-count {
+	font-size: 0.8em;
+	opacity: 0.7;
+	background: rgba(255, 255, 255, 0.1);
+	padding: 2px 8px;
+	border-radius: 8px;
+}
+
+.position-players {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+}
+
+.empty-slot {
+	background: rgba(255, 255, 255, 0.05);
+	border: 2px dashed rgba(255, 255, 255, 0.3);
+	border-radius: 10px;
+	padding: 15px;
+	text-align: center;
+	min-width: 120px;
+	opacity: 0.6;
+}
+
+.empty-slot-content {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 5px;
+}
+
+.empty-icon {
+	font-size: 1.2em;
+	opacity: 0.5;
+}
+
+.empty-text {
+	font-size: 0.8em;
+	opacity: 0.7;
+	text-transform: capitalize;
+}
+
+.team-summary {
+	margin-top: 20px;
+	padding-top: 15px;
+	border-top: 2px solid rgba(255, 255, 255, 0.2);
+	display: flex;
+	justify-content: space-between;
+	gap: 15px;
+}
+
+.summary-item {
+	text-align: center;
+	flex: 1;
+}
+
+.summary-label {
+	display: block;
+	font-size: 0.8em;
+	opacity: 0.7;
+	margin-bottom: 5px;
+	text-transform: capitalize;
+}
+
+.summary-value {
+	display: block;
+	font-size: 1.1em;
+	font-weight: bold;
+	color: #ff6b6b;
+}
+
+/* PlayerList Component */
+.player-list-section {
+	background: rgba(255, 255, 255, 0.05);
+	border-radius: 15px;
+	padding: 20px;
+	margin: 20px 0;
+	border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.player-list-header {
+	text-align: center;
+	margin-bottom: 25px;
+}
+
+.player-list-header h3 {
+	color: #4ecdc4;
+	font-size: 1.4em;
+	margin-bottom: 8px;
+	text-transform: capitalize;
+}
+
+.player-list-header p {
+	opacity: 0.8;
+	font-size: 0.9em;
+}
+
+.player-groups {
+	margin-bottom: 20px;
+}
+
+.position-group {
+	margin-bottom: 20px;
+}
+
+.position-header {
+	font-size: 1.1em;
+	margin-bottom: 12px;
+	color: #ff6b6b;
+	border-bottom: 2px solid rgba(255, 107, 107, 0.3);
+	padding-bottom: 8px;
+	text-transform: capitalize;
+}
+
+.player-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+	gap: 10px;
+}
+
+/* GameStatus Component */
+.game-status {
+	background: rgba(255, 255, 255, 0.08);
+	border-radius: 15px;
+	padding: 25px;
+	margin-bottom: 25px;
+	border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.status-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	margin-bottom: 20px;
+	gap: 20px;
+	flex-wrap: wrap;
+}
+
+.game-info h2 {
+	color: #4ecdc4;
+	margin-bottom: 8px;
+	font-size: 1.8em;
+}
+
+.game-info p {
+	opacity: 0.9;
+	font-size: 1em;
+}
+
+.user-card {
+	background: rgba(255, 255, 255, 0.1);
+	padding: 20px;
+	border-radius: 12px;
+	border: 1px solid rgba(255, 255, 255, 0.2);
+	min-width: 200px;
+}
+
+.user-card h4 {
+	margin-bottom: 15px;
+	font-size: 1.2em;
+	color: white;
+}
+
+.user-stats {
+	display: flex;
+	gap: 20px;
+	justify-content: space-between;
+}
+
+.user-stats .stat {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 5px;
+}
+
+.user-stats .stat-label {
+	font-size: 0.8em;
+	opacity: 0.7;
+}
+
+.user-stats .stat-value {
+	font-size: 1.1em;
+	font-weight: bold;
+}
+
+.budget {
+	color: #4ecdc4;
+}
+
+.players {
+	color: #ff6b6b;
+}
+
+.game-phase-indicator {
+	text-align: center;
+	padding: 15px;
+	background: rgba(255, 255, 255, 0.05);
+	border-radius: 10px;
+	border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.phase-status {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 10px;
+	font-size: 1.1em;
+	font-weight: 500;
+}
+
+.phase-icon {
+	font-size: 1.2em;
+}
+
+.phase-text {
+	color: #4ecdc4;
+}
+
+/* Game Layout */
+.game-layout {
+	display: grid;
+	grid-template-columns: 1fr 300px;
+	gap: 25px;
+	align-items: start;
+}
+
+@media (max-width: 1024px) {
+	.game-layout {
+		grid-template-columns: 1fr;
+	}
+
+	.game-sidebar {
+		order: -1;
+	}
+}
+
+.game-main {
+	min-height: 400px;
+}
+
+.game-sidebar {
+	position: sticky;
+	top: 20px;
+}
+
+/* Component Showcase */
+.component-showcase {
+	background: rgba(255, 255, 255, 0.05);
+	border-radius: 15px;
+	padding: 25px;
+	border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.component-showcase h3 {
+	color: #4ecdc4;
+	margin-bottom: 10px;
+	font-size: 1.5em;
+}
+
+.component-showcase > p {
+	opacity: 0.8;
+	margin-bottom: 25px;
+}
+
+.showcase-section {
+	margin-bottom: 30px;
+	padding: 20px;
+	background: rgba(255, 255, 255, 0.03);
+	border-radius: 10px;
+	border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.showcase-section h4 {
+	color: #ff6b6b;
+	margin-bottom: 15px;
+	font-size: 1.2em;
+	text-transform: capitalize;
+}
+
+.card-sizes {
+	display: flex;
+	gap: 15px;
+	align-items: center;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.timer-states {
+	display: flex;
+	gap: 20px;
+	align-items: center;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
 	.header h1 {
 		font-size: 2em;
@@ -382,5 +854,23 @@ body {
 
 	.player-count {
 		font-size: 3em;
+	}
+	.status-header {
+		flex-direction: column;
+		text-align: center;
+	}
+
+	.user-stats {
+		flex-direction: column;
+		gap: 5px;
+	}
+
+	.team-stats {
+		flex-direction: column;
+		gap: 10px;
+	}
+
+	.player-grid {
+		grid-template-columns: 1fr;
 	}
 }

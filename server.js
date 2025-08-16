@@ -15,7 +15,18 @@ const io = socketIo(server, {
 const gameState = {
 	users: new Map(),
 	maxUsers: 2,
+	gameStarted: false,
 };
+
+// simple player data for component testing
+const mockPlayers = [
+	{ id: 1, name: 'Patrick Mahomes', position: 'QB' },
+	{ id: 2, name: 'Josh Allen', position: 'QB' },
+	{ id: 3, name: 'Christian McCaffrey', position: 'RB' },
+	{ id: 4, name: 'Derrick Henry', position: 'RB' },
+	{ id: 5, name: 'Cooper Kupp', position: 'WR' },
+	{ id: 6, name: 'Davante Adams', position: 'WR' },
+];
 
 // socket connection handling
 io.on('connection', (socket) => {
@@ -35,6 +46,9 @@ io.on('connection', (socket) => {
 		gameState.users.set(socket.id, {
 			id: socket.id,
 			username: data.username,
+			budget: 100,
+			team: [],
+			playersOwned: 0,
 		});
 
 		socket.emit('joinSuccess', {
@@ -50,6 +64,17 @@ io.on('connection', (socket) => {
 		console.log(
 			`${data.username} joined. Players: ${gameState.users.size}/${gameState.maxUsers}`
 		);
+		// simple game start when 2 players join (just changes phase, no auction logic)
+		if (gameState.users.size === gameState.maxUsers && !gameState.gameStarted) {
+			gameState.gameStarted = true;
+
+			setTimeout(() => {
+				io.emit('gameStarted', {
+					message: 'game started! (components testing mode)',
+					players: mockPlayers, // send mock data for component testing
+				});
+			}, 2000);
+		}
 	});
 
 	// handle disconnection
