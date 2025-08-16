@@ -1,32 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useSocket } from './contexts/SocketContext';
 import { useAuction } from './contexts/AuctionContext';
+import JoinForm from './components/lobby/JoinForm';
+import WaitingRoom from './components/lobby/WaitingRoom';
+import GameStatus from './components/game/GameStatus';
 import Button from './components/common/Button';
-import Modal from './components/common/Modal';
 import Timer from './components/common/Timer';
 import './index.css';
 
 function App() {
 	const { connected } = useSocket();
-	const { gamePhase, playerCount, maxUsers, currentUser, message, joinGame } =
-		useAuction();
-
-	// local state for the join form
-	const [username, setUsername] = useState('');
-	const [showModal, setShowModal] = useState(false);
-	const [testTimer, setTestTimer] = useState(30);
-
-	// handle form submission
-	const handleJoin = (e) => {
-		e.preventDefault();
-		if (username.trim()) {
-			joinGame(username.trim());
-		}
-	};
-
-	// test functions for  components
-	const testModal = () => setShowModal(true);
-	const decrementTimer = () => setTestTimer(Math.max(0, testTimer - 1));
+	const { gamePhase, currentUser } = useAuction();
 
 	// show connection status
 	if (!connected) {
@@ -46,107 +30,56 @@ function App() {
 	const renderScreen = () => {
 		switch (gamePhase) {
 			case 'join':
-				return (
-					<div className='screen'>
-						<h2>Join the Auction</h2>
-						<form onSubmit={handleJoin} className='join-form'>
-							<input
-								type='text'
-								value={username}
-								onChange={(e) => setUsername(e.target.value)}
-								placeholder='Enter your username'
-								maxLength='20'
-								required
-								className='username-input'
-							/>
-							<button type='submit' className='join-button'>
-								Join Game
-							</button>
-						</form>
-						{/* test new components */}
-						<div className='component-test'>
-							<h3>Component Tests (Phase 2)</h3>
-							<div className='test-buttons'>
-								<Button variant='primary' onClick={testModal}>
-									Test Modal
-								</Button>
-								<Button variant='secondary' onClick={decrementTimer}>
-									Test Timer
-								</Button>
-								<Button variant='success' size='small'>
-									Success
-								</Button>
-								<Button variant='danger' disabled>
-									Disabled
-								</Button>
-							</div>
-							<Timer timeRemaining={testTimer} size='medium' />
-						</div>
-
-						{message && <p className='message'>{message}</p>}
-					</div>
-				);
+				return <JoinForm />;
 
 			case 'lobby':
-				return (
-					<div className='screen'>
-						<h2>Waiting for Players</h2>
-						<div className='lobby-info'>
-							<div className='player-count'>
-								<span className='count'>{playerCount}</span>
-								<span className='separator'>/</span>
-								<span className='total'>{maxUsers}</span>
-							</div>
-							<p>Players in lobby</p>
-
-							{currentUser && (
-								<p className='welcome'>
-									Welcome, <strong>{currentUser.username}</strong>!
-								</p>
-							)}
-
-							<p className='waiting-text'>
-								{playerCount < maxUsers
-									? `Waiting for ${maxUsers - playerCount} more players...`
-									: 'Game will start soon!'}
-							</p>
-							{/* test components in lobby too */}
-							<div className='lobby-actions'>
-								<Button variant='secondary' onClick={testModal}>
-									Test Modal
-								</Button>
-								<Timer timeRemaining={15} size='small' />
-							</div>
-						</div>
-						{message && <p className='message'>{message}</p>}
-					</div>
-				);
+				return <WaitingRoom />;
 
 			case 'game':
 				return (
 					<div className='screen'>
-						<h2>Game In Progress</h2>
-						<p>Game logic here</p>
-						<Timer timeRemaining={30} size='large' />
+						<GameStatus />
+						<div className='game-content'>
+							<h2>🎮 Auction Starting Soon</h2>
+							<p>get ready to bid on players!</p>
+							<Timer timeRemaining={30} size='large' />
+							<div className='game-actions'>
+								<Button variant='primary' size='large'>
+									Ready to Bid
+								</Button>
+							</div>
+						</div>
 					</div>
 				);
 
 			case 'final':
 				return (
 					<div className='screen'>
-						<h2>Game Complete</h2>
-						<p>Results here</p>
-						<Button variant='success' size='large'>
-							Play Again
-						</Button>
+						<h2>🏆 Auction Complete</h2>
+						<p>great job! here are the results...</p>
+						<div className='final-actions'>
+							<Button
+								variant='success'
+								size='large'
+								onClick={() => window.location.reload()}
+							>
+								Play Again
+							</Button>
+						</div>
 					</div>
 				);
 
 			default:
 				return (
 					<div className='screen'>
-						<h2>Unknown State</h2>
-						<p>Something went wrong...</p>
+						<h2>⚠️ Unknown State</h2>
+						<p>something went wrong. please refresh the page.</p>
+						<Button
+							variant='secondary'
+							onClick={() => window.location.reload()}
+						>
+							Refresh Page
+						</Button>
 					</div>
 				);
 		}
@@ -159,22 +92,11 @@ function App() {
 					<h1>Blind Auction</h1>
 					<div className='status'>
 						<span className='status-indicator connected'>🟢</span>
-						<span>Connected to server</span>
+						<span>Connected • {currentUser?.username || 'Not joined'}</span>
 					</div>
 				</div>
 
 				{renderScreen()}
-				{/* test modal */}
-				{showModal && (
-					<Modal title='Test Modal' onClose={() => setShowModal(false)}>
-						<p>This is a test modal! 🎉</p>
-						<p>Press Escape or click outside to close.</p>
-						<br />
-						<Button variant='primary' onClick={() => setShowModal(false)}>
-							Close Modal
-						</Button>
-					</Modal>
-				)}
 			</div>
 		</div>
 	);
