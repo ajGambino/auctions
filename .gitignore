@@ -120,3 +120,4 @@ pnpm-lock.yaml
 # Production files (if deploying elsewhere)
 # dist/
 # build/
+CLAUDE.md

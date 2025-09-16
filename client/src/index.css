@@ -838,6 +838,334 @@ body {
 	justify-content: center;
 }
 
+/* Enhanced PlayerList with Search & Scroll */
+.player-controls {
+	background: rgba(255, 255, 255, 0.05);
+	border-radius: 12px;
+	padding: 20px;
+	margin-bottom: 20px;
+	border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.search-container {
+	position: relative;
+	margin-bottom: 15px;
+}
+
+.player-search {
+	width: 100%;
+	padding: 12px 40px 12px 16px;
+	font-size: 1em;
+	border: 2px solid rgba(255, 255, 255, 0.2);
+	border-radius: 10px;
+	background: rgba(255, 255, 255, 0.1);
+	color: white;
+	backdrop-filter: blur(10px);
+	transition: all 0.3s ease;
+}
+
+.player-search:focus {
+	outline: none;
+	border-color: #4ecdc4;
+	background: rgba(255, 255, 255, 0.15);
+	box-shadow: 0 0 15px rgba(78, 205, 196, 0.3);
+}
+
+.player-search::placeholder {
+	color: rgba(255, 255, 255, 0.6);
+}
+
+.search-icon {
+	position: absolute;
+	right: 12px;
+	top: 50%;
+	transform: translateY(-50%);
+	font-size: 1.2em;
+	opacity: 0.6;
+}
+
+.position-filters {
+	display: flex;
+	gap: 8px;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.position-filter {
+	padding: 8px 16px;
+	border: 2px solid rgba(255, 255, 255, 0.2);
+	border-radius: 20px;
+	background: rgba(255, 255, 255, 0.05);
+	color: white;
+	font-size: 0.9em;
+	font-weight: 500;
+	cursor: pointer;
+	transition: all 0.3s ease;
+}
+
+.position-filter:hover {
+	background: rgba(255, 255, 255, 0.1);
+	border-color: rgba(255, 255, 255, 0.4);
+}
+
+.position-filter.active {
+	background: #4ecdc4;
+	border-color: #4ecdc4;
+	color: white;
+}
+
+.player-list-container {
+	max-height: 400px;
+	overflow-y: auto;
+	background: rgba(255, 255, 255, 0.02);
+	border-radius: 10px;
+	padding: 15px;
+	border: 1px solid rgba(255, 255, 255, 0.1);
+
+	/* custom scrollbar */
+	scrollbar-width: thin;
+	scrollbar-color: rgba(78, 205, 196, 0.5) rgba(255, 255, 255, 0.1);
+}
+
+.player-list-container::-webkit-scrollbar {
+	width: 8px;
+}
+
+.player-list-container::-webkit-scrollbar-track {
+	background: rgba(255, 255, 255, 0.05);
+	border-radius: 4px;
+}
+
+.player-list-container::-webkit-scrollbar-thumb {
+	background: rgba(78, 205, 196, 0.5);
+	border-radius: 4px;
+}
+
+.player-list-container::-webkit-scrollbar-thumb:hover {
+	background: rgba(78, 205, 196, 0.7);
+}
+
+.no-results {
+	text-align: center;
+	padding: 40px 20px;
+	opacity: 0.7;
+}
+
+.no-results p {
+	margin-bottom: 15px;
+	font-size: 1.1em;
+}
+
+.clear-filters {
+	padding: 8px 16px;
+	background: #ff6b6b;
+	color: white;
+	border: none;
+	border-radius: 8px;
+	cursor: pointer;
+	font-size: 0.9em;
+	transition: all 0.3s ease;
+}
+
+.clear-filters:hover {
+	background: #ee5a52;
+	transform: translateY(-1px);
+}
+
+.player-card.selectable {
+	cursor: pointer;
+	border: 2px solid transparent;
+}
+
+.player-card.selectable:hover {
+	border-color: rgba(78, 205, 196, 0.5);
+	background: rgba(255, 255, 255, 0.15);
+	transform: translateY(-2px);
+}
+
+/* BidForm Component Styles */
+.bid-form-section {
+	background: rgba(255, 255, 255, 0.08);
+	border-radius: 15px;
+	padding: 25px;
+	margin: 20px 0;
+	border: 2px solid rgba(255, 255, 255, 0.15);
+}
+
+.bid-form-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 20px;
+	flex-wrap: wrap;
+	gap: 15px;
+}
+
+.bid-form-header h3 {
+	color: #4ecdc4;
+	font-size: 1.4em;
+	text-transform: capitalize;
+}
+
+.bid-info {
+	display: flex;
+	gap: 20px;
+	font-size: 0.9em;
+	opacity: 0.8;
+}
+
+.timer-display {
+	font-weight: bold;
+	padding: 4px 8px;
+	border-radius: 6px;
+	background: rgba(255, 255, 255, 0.1);
+}
+
+.timer-display.warning {
+	color: #ffa726;
+	background: rgba(255, 167, 38, 0.2);
+}
+
+.timer-display.critical {
+	color: #ff6b6b;
+	background: rgba(255, 107, 107, 0.2);
+	animation: pulse-warning 0.5s infinite;
+}
+
+@keyframes pulse-warning {
+	0%,
+	100% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 0.7;
+	}
+}
+
+.bid-form {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 15px;
+	margin-bottom: 20px;
+	flex-wrap: wrap;
+}
+
+.bid-input-group {
+	display: flex;
+	align-items: center;
+	background: rgba(255, 255, 255, 0.1);
+	border-radius: 10px;
+	border: 2px solid rgba(255, 255, 255, 0.2);
+	transition: border-color 0.3s ease;
+	overflow: hidden;
+}
+
+.bid-input-group:focus-within {
+	border-color: #ff6b6b;
+	box-shadow: 0 0 15px rgba(255, 107, 107, 0.3);
+}
+
+.currency-symbol {
+	padding: 12px 8px 12px 16px;
+	font-size: 1.2em;
+	font-weight: bold;
+	color: #4ecdc4;
+	background: rgba(78, 205, 196, 0.1);
+}
+
+.bid-input {
+	background: none;
+	border: none;
+	padding: 12px 16px 12px 8px;
+	font-size: 1.2em;
+	color: white;
+	width: 120px;
+	text-align: center;
+	outline: none;
+}
+
+.bid-input::placeholder {
+	color: rgba(255, 255, 255, 0.4);
+}
+
+.quick-bids {
+	text-align: center;
+	margin: 20px 0;
+	padding: 15px;
+	background: rgba(255, 255, 255, 0.03);
+	border-radius: 10px;
+	border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.quick-bid-label {
+	font-size: 0.9em;
+	opacity: 0.7;
+	margin-bottom: 10px;
+	text-transform: capitalize;
+}
+
+.quick-bid-buttons {
+	display: flex;
+	gap: 8px;
+	justify-content: center;
+	flex-wrap: wrap;
+}
+
+.quick-bid-btn {
+	padding: 6px 12px;
+	background: rgba(78, 205, 196, 0.2);
+	border: 1px solid rgba(78, 205, 196, 0.4);
+	border-radius: 6px;
+	color: #4ecdc4;
+	font-size: 0.9em;
+	font-weight: 500;
+	cursor: pointer;
+	transition: all 0.3s ease;
+}
+
+.quick-bid-btn:hover:not(:disabled) {
+	background: rgba(78, 205, 196, 0.3);
+	transform: translateY(-1px);
+}
+
+.quick-bid-btn:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
+.bid-status {
+	text-align: center;
+	padding: 12px 16px;
+	border-radius: 8px;
+	margin: 15px 0;
+	font-weight: 500;
+}
+
+.bid-status.success {
+	background: rgba(78, 205, 196, 0.2);
+	color: #4ecdc4;
+	border: 1px solid rgba(78, 205, 196, 0.4);
+}
+
+.bid-status.error {
+	background: rgba(255, 107, 107, 0.2);
+	color: #ff6b6b;
+	border: 1px solid rgba(255, 107, 107, 0.4);
+}
+
+.bid-tips {
+	text-align: center;
+	margin-top: 15px;
+}
+
+.bid-tips p {
+	font-size: 0.8em;
+	opacity: 0.6;
+	margin: 4px 0;
+	font-style: italic;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
 	.header h1 {

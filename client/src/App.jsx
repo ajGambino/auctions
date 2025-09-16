@@ -9,6 +9,7 @@ import Timer from './components/common/Timer';
 import UserTeam from './components/game/UserTeam';
 import PlayerList from './components/auction/PlayerList';
 import PlayerCard from './components/auction/PlayerCard';
+import BidForm from './components/auction/BidForm';
 import './index.css';
 
 function App() {
@@ -46,46 +47,34 @@ function App() {
 						<div className='game-layout'>
 							{/* main content area */}
 							<div className='game-main'>
-								<div className='component-showcase'>
-									<p>testing game components with mock data</p>
+								{/* current auction player and timer */}
+								<div className='current-auction'>
+									{/* Show current player being auctioned */}
+									<PlayerCard
+										player={{ name: 'Current Player', position: 'QB' }} // Will be set by AuctionContext
+										size='large'
+									/>
+									
+									{/* Auction timer */}
+									<Timer 
+										timeRemaining={30} // Will be updated by timer events
+										size='large' 
+									/>
+								</div>
 
-									{/* test different playercard sizes */}
-									<div className='showcase-section'>
-										<h4>playercard sizes:</h4>
-										<div className='card-sizes'>
-											<PlayerCard
-												player={{ name: 'Small Card', position: 'QB' }}
-												size='small'
-											/>
-											<PlayerCard
-												player={{ name: 'Medium Card', position: 'RB' }}
-												size='medium'
-											/>
-											<PlayerCard
-												player={{ name: 'Large Card', position: 'WR' }}
-												size='large'
-											/>
-										</div>
-									</div>
+								{/* bidding interface */}
+								<BidForm
+									currentPlayer={null} // Will be set by AuctionContext when bidding starts
+									userBudget={currentUser?.budget || 0}
+									timeRemaining={30} // Will be updated by timer events
+								/>
 
-									{/* test timer component */}
-									<div className='showcase-section'>
-										<h4>timer states:</h4>
-										<div className='timer-states'>
-											<Timer timeRemaining={30} size='small' />
-											<Timer timeRemaining={10} size='medium' />
-											<Timer timeRemaining={3} size='large' />
-										</div>
-									</div>
-
-									{/* test playerlist */}
-									<div className='showcase-section'>
-										<h4>available players:</h4>
-										<PlayerList
-											players={availablePlayers}
-											title='mock player pool'
-										/>
-									</div>
+								{/* available players for nomination */}
+								<div className='available-players'>
+									<PlayerList
+										players={availablePlayers}
+										title='Available Players'
+									/>
 								</div>
 							</div>
 
